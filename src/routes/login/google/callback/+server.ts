@@ -15,15 +15,11 @@ export async function GET(event: RequestEvent): Promise<Response> {
   const state = event.url.searchParams.get('state');
 
   if (storedState === null || codeVerifier === null || code === null || state === null) {
-    return new Response('Please restart the process.', {
-      status: 400
-    });
+    return new Response('Please restart the process.', { status: 400 });
   }
 
   if (storedState !== state) {
-    return new Response('Please restart the process.', {
-      status: 400
-    });
+    return new Response('Please restart the process.', { status: 400 });
   }
 
   let tokens: OAuth2Tokens;
@@ -31,9 +27,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
   try {
     tokens = await google.validateAuthorizationCode(code, codeVerifier);
   } catch (e) {
-    return new Response('Please restart the process.', {
-      status: 400
-    });
+    return new Response('Please restart the process.', { status: 400 });
   }
 
   const claims = decodeIdToken(tokens.idToken());
@@ -43,6 +37,10 @@ export async function GET(event: RequestEvent): Promise<Response> {
   const name = claimsParser.getString('name');
   const avatar = claimsParser.getString('picture');
   const email = claimsParser.getString('email');
+
+  if (!email.endsWith('@wastukancana.ac.id')) {
+    return new Response('Please use email with extension @wastukancana.ac.id.', { status: 400 });
+  }
 
   const existingUser = await db
     .select()
