@@ -4,5 +4,5 @@ import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK } from '$env/st
 export const google = new Google(
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
-  GOOGLE_CALLBACK || 'http://localhost:5173/login/google/callback'
+  GOOGLE_CALLBACK || 'https://wastu.fyi/login/google/callback'
 );
