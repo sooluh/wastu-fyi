@@ -26,6 +26,10 @@
   $: links;
 </script>
 
+<svelte:head>
+  <title>Dashboard - Wastu.FYI</title>
+</svelte:head>
+
 <div class="min-h-screen bg-gray-50">
   <header class="bg-white shadow">
     <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
