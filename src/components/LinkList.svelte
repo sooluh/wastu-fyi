@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
+  import { m } from '$lib/paraglide/messages';
   import type { Link } from '$lib/server/db/schema';
 
   export let links: (Link & { clicks: number })[];
@@ -30,6 +31,7 @@
         <div class="flex items-start justify-between">
           <div class="min-w-0 flex-1">
             <h3 class="mb-1 truncate text-sm font-medium text-blue-600">{link.slug}</h3>
+
             <a
               href={link.url}
               target="_blank"
@@ -39,16 +41,18 @@
               {link.url}
             </a>
           </div>
+
           <span
             class="ml-2 inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
           >
-            {link.clicks} clicks
+            {link.clicks}
+            {m.clicks()}
           </span>
         </div>
       </div>
 
       <div class="flex items-center justify-between bg-gray-50 px-4 py-3">
-        <div class="text-xs text-gray-500">Created: {link.createdAt.toLocaleString()}</div>
+        <div class="text-xs text-gray-500">{m.created()}: {link.createdAt.toLocaleString()}</div>
 
         <div class="flex space-x-2">
           <button
@@ -56,17 +60,14 @@
             on:click={() => copyToClipboard(link.slug, link.uuid)}
             class="inline-flex items-center rounded border border-transparent bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
           >
-            {copiedId === link.uuid ? 'Copied' : 'Copy'}
+            {copiedId === link.uuid ? m.copied() : m.copy()}
           </button>
 
-          {#if false}
-            <!-- TODO -->
-            <button
-              class="inline-flex items-center rounded border border-transparent bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none"
-            >
-              Delete
-            </button>
-          {/if}
+          <button
+            class="inline-flex items-center rounded border border-transparent bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none"
+          >
+            {m.delete()}
+          </button>
         </div>
       </div>
     </div>

@@ -1,9 +1,11 @@
 import { db } from '$lib/server/db';
 import { count, eq } from 'drizzle-orm';
+import { m } from '$lib/paraglide/messages';
 import { fail, redirect } from '@sveltejs/kit';
 import * as schema from '$lib/server/db/schema';
 import { generateCode, isValidUrl } from '$lib/utils';
 import type { Actions, RequestEvent } from './$types';
+import { setFlash } from 'sveltekit-flash-message/server';
 import { deleteSessionTokenCookie, invalidateSession } from '$lib/server/session';
 
 export async function load(event: RequestEvent) {
@@ -31,7 +33,8 @@ export async function load(event: RequestEvent) {
 
 async function create(event: RequestEvent) {
   if (event.locals.session === null) {
-    return fail(401, { error: 'Unauthorized' });
+    setFlash({ type: 'error', message: m.unauthorized() }, event.cookies);
+    return fail(401);
   }
 
   const formData = await event.request.formData();
@@ -40,15 +43,28 @@ async function create(event: RequestEvent) {
   let slug = formData.get('slug') as string | null;
 
   if (!url) {
-    return fail(400, { error: 'Original URL is required' });
+    setFlash({ type: 'error', message: m.destination_url_is_required() }, event.cookies);
+    return fail(400);
   }
 
   if (!isValidUrl(url)) {
-    return fail(400, { error: 'Original URL is not valid' });
+    setFlash({ type: 'error', message: m.destination_url_is_not_valid() }, event.cookies);
+    return fail(400);
   }
 
   if (!slug) {
     slug = generateCode();
+  }
+
+  const exists = await db
+    .select()
+    .from(schema.link)
+    .where(eq(schema.link.slug, slug))
+    .then((row) => row.at(0));
+
+  if (!!exists) {
+    setFlash({ type: 'error', message: m.the_slug_has_been_taken_try_again() }, event.cookies);
+    return fail(400);
   }
 
   try {
@@ -60,7 +76,9 @@ async function create(event: RequestEvent) {
     return { success: true, uuid: uuid[0].uuid, slug };
   } catch (e) {
     console.error(e);
-    return fail(500, { error: 'Failed to create short link' });
+
+    setFlash({ type: 'error', message: m.failed_to_create_short_link() }, event.cookies);
+    return fail(500);
   }
 }
 

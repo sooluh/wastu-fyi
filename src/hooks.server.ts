@@ -1,4 +1,5 @@
 import type { Handle } from '@sveltejs/kit';
+import { m } from '$lib/paraglide/messages';
 import { sequence } from '@sveltejs/kit/hooks';
 import * as session from '$lib/server/session';
 import { TokenBucket } from '$lib/server/rate-limit';
@@ -22,18 +23,20 @@ const rateLimitHandle: Handle = ({ event, resolve }) => {
   }
 
   if (!bucket.consume(clientIP, cost)) {
-    return new Response('Too many requests', { status: 429 });
+    return new Response(m.too_many_requests(), { status: 429 });
   }
 
   return resolve(event);
 };
 
 const paraglideHandle: Handle = ({ event, resolve }) => {
-  return paraglideMiddleware(event.request, ({ request, locale }) => {
-    event.request = request;
+  return paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
+    event.request = localizedRequest;
 
     return resolve(event, {
-      transformPageChunk: ({ html }) => html.replace('%paraglide.lang%', locale)
+      transformPageChunk: ({ html }) => {
+        return html.replace('%paraglide.lang%', locale);
+      }
     });
   });
 };

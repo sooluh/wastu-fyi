@@ -1,14 +1,19 @@
+<script lang="ts">
+  import { m } from '$lib/paraglide/messages';
+</script>
+
 <div class="w-full overflow-hidden rounded-lg bg-white shadow-md">
   <div class=" p-6">
-    <h2 class="text-center text-2xl font-bold text-gray-800">Login</h2>
-    <p class="mt-1 text-center text-gray-600">Sign in with your Google account</p>
+    <h2 class="text-center text-2xl font-bold text-gray-800">{m.login()}</h2>
+    <p class="mt-1 text-center text-gray-600">{m.sign_in_with_your_google_account()}</p>
   </div>
 
   <div class="space-y-4 border-y border-gray-200 p-6">
     <div class="text-center text-sm">
       <p class="text-gray-600">
-        Only email addresses with <span class="font-semibold">@wastukancana.ac.id</span> domain are allowed
-        to sign in.
+        {m.only_email_addresses_with_domain_are_allowed_to_sign_in({
+          domain: 'wastukancana.ac.id'
+        })}
       </p>
     </div>
 
@@ -36,14 +41,15 @@
           />
           <path d="M1 1h22v22H1z" fill="none" />
         </svg>
-        Sign in with Google
+
+        {m.sign_in_with_google()}
       </a>
     </div>
   </div>
 
-  <div class="flex flex-col items-center px-6 pt-2 pb-6">
+  <div class="flex flex-col items-center px-6 pt-2 pb-6 text-center">
     <p class="mt-4 text-xs text-gray-500">
-      By signing in, you agree to our Terms of Service and Privacy Policy.
+      {m.by_signing_in_you_agree_to_our_terms_of_service_and_privacy_policy()}
     </p>
   </div>
 </div>
