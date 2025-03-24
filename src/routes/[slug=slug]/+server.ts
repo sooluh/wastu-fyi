@@ -11,5 +11,6 @@ export async function GET(event: RequestEvent): Promise<Response> {
     error(404, 'Not Found');
   }
 
+  await db.insert(schema.click).values({ linkId: link[0].uuid });
   throw redirect(302, link[0].url);
 }
