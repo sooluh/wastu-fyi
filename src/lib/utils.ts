@@ -17,3 +17,7 @@ export const isValidUrl = (url: string) => {
 
   return false;
 };
+
+export const isValidSlug = (slug: string) => {
+  return /^([a-zA-Z0-9-_]+)$/.test(slug);
+};

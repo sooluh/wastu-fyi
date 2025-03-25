@@ -25,5 +25,13 @@
   "create_short_link": "Buat Tautan Pendek",
   "your_short_links": "Tautan Pendek Anda",
   "you_havent_created_any_short_links_yet": "Anda belum membuat tautan pendek apa pun.",
-  "too_many_requests": "Terlalu banyak permintaan"
+  "too_many_requests": "Terlalu banyak permintaan",
+  "short_link_is_not_valid": "Tautan pendek tidak valid",
+  "short_link_cannot_be_found": "Tautan pendek tidak dapat ditemukan",
+  "failed_to_unlist_short_link": "Gagal menghapus tautan pendek",
+  "successfully_create_a_short_link": "Berhasil membuat tautan pendek",
+  "successfully_unlisted_a_short_link": "Berhasil menghapus tautan pendek dari daftar",
+  "confirm_deletion": "Konfirmasi Penghapusan",
+  "are_you_sure_you_want_to_delete_this_short_link_this_action_cannot_be_undone": "Apakah Anda yakin ingin menghapus tautan pendek ini? Tindakan ini tidak dapat dibatalkan.",
+  "cancel": "Batal"
 }

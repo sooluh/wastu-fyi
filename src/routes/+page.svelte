@@ -4,13 +4,20 @@
   import { m } from '$lib/paraglide/messages';
   import LinkForm from '$components/LinkForm.svelte';
   import LinkList from '$components/LinkList.svelte';
+  import ConfirmDelete from '$components/ConfirmDelete.svelte';
 
   export let data: PageData;
+
+  let selectedUuid: string | null = null;
 </script>
 
 <svelte:head>
   <title>{m.dashboard()} - Wastu.FYI</title>
 </svelte:head>
+
+{#if selectedUuid}
+  <ConfirmDelete onCancel={() => (selectedUuid = null)} uuid={selectedUuid} />
+{/if}
 
 <div class="min-h-screen bg-gray-50">
   <header class="bg-white shadow">
@@ -43,7 +50,7 @@
         <h2 class="mb-4 text-lg font-medium text-gray-900">{m.your_short_links()}</h2>
 
         {#if data.links.length > 0}
-          <LinkList links={data.links} />
+          <LinkList links={data.links} onDelete={(uuid) => (selectedUuid = uuid)} />
         {:else}
           <div class="py-8 text-center">
             <p class="text-gray-500">{m.you_havent_created_any_short_links_yet()}</p>

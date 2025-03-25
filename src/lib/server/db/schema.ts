@@ -32,7 +32,8 @@ export const link = table('links', {
   updatedAt: t
     .timestamp('updated_at', { withTimezone: true, mode: 'date' })
     .default(sql`NULL`)
-    .$onUpdate(() => new Date())
+    .$onUpdate(() => new Date()),
+  deletedAt: t.timestamp('deleted_at', { withTimezone: true, mode: 'date' }).default(sql`NULL`)
 });
 
 export const click = table('clicks', {

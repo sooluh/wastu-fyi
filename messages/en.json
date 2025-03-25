@@ -25,5 +25,13 @@
   "create_short_link": "Create Short Link",
   "your_short_links": "Your Short Links",
   "you_havent_created_any_short_links_yet": "You haven't created any short links yet.",
-  "too_many_requests": "Too many requests"
+  "too_many_requests": "Too many requests",
+  "short_link_is_not_valid": "Short link is not valid",
+  "short_link_cannot_be_found": "Short link cannot be found",
+  "failed_to_unlist_short_link": "Failed to unlist short link",
+  "successfully_create_a_short_link": "Successfully create a short link",
+  "successfully_unlisted_a_short_link": "Successfully unlisted a short link",
+  "confirm_deletion": "Confirm Deletion",
+  "are_you_sure_you_want_to_delete_this_short_link_this_action_cannot_be_undone": "Are you sure you want to delete this short link? This action cannot be undone.",
+  "cancel": "Cancel"
 }

@@ -5,6 +5,7 @@
   import type { Link } from '$lib/server/db/schema';
 
   export let links: (Link & { clicks: number })[];
+  export let onDelete: (uuid: string) => void;
 
   let domain = 'https://wastu.fyi';
   let copiedId: string | null = null;
@@ -64,6 +65,7 @@
           </button>
 
           <button
+            on:click={() => onDelete(link.uuid)}
             class="inline-flex items-center rounded border border-transparent bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none"
           >
             {m.delete()}

@@ -22,6 +22,13 @@
       "when": 1742802750270,
       "tag": "0002_famous_vin_gonzales",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1742873615532,
+      "tag": "0003_sweet_la_nuit",
+      "breakpoints": true
     }
   ]
 }
